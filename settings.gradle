@@ -1,0 +1,3 @@
+include ':Persian_Numbers'
+include ':app'
+rootProject.name = "digitstest"
