@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         
         input.doAfterTextChanged {
             val number = it.toString()
-            textView.text = Digits.spellToFarsi(number)
+            textView.text = Digits().spellToFarsi(number)
         }
     }
 }

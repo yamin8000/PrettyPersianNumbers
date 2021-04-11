@@ -1,2 +1,3 @@
 /build
 !/release/
+!/src/main/java/ir/yamin/digitstest/test.java
