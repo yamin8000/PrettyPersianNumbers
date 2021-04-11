@@ -2,7 +2,8 @@
 # Pretty Persian Numbers  
   
 > Convert numbers to Persian words  
-  
+
+  Read this page in Persian [here](https://github.com/yamin8000/PrettyPersianNumbers/wiki/Readme-Persian)
 |-|-|  
 |--|--|  
 |📺|[Preview](#Preview)|  
@@ -17,7 +18,7 @@
   
   
 ## Preview  
-  
+[Check preview on imgur](https://imgur.com/unZlSke)
 ## Compatibility  
   Android Jellybean 4.1+/SDK 16+  
 ## Usage  
@@ -68,14 +69,16 @@ implementation("com.github.yamin8000:PrettyPersianNumbers:1.0.1")
 }  
 ``` 
 ## Features  
- - Any number that could be fitted in `BigInteger` can be converted to Persian words using this library
+ - Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero to Vigintillion or more
  - Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
  - Negative numbers are supported
  - TODO adding support for `Float`/`Double` numbers
 
 ## Changelog  
-  **1.0.1** bug fixes, added support for big numbers
-  **1.0.0** initial version
+
+ - **1.0.1** bug fixes, added support for big numbers
+ - **1.0.0** initial version
+
 ## Credits  
   [https://github.com/yaghoob](https://github.com/yaghoob)
 ## Contribution  
