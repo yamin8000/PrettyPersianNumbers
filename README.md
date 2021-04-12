@@ -18,6 +18,8 @@
   
   
 ## Preview  
+![ScreenShot](/screen.webp)
+
 [Check preview on imgur](https://imgur.com/unZlSke)
 ## Compatibility  
   Android Jellybean 4.1+/SDK 16+  
