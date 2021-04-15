@@ -18,7 +18,7 @@
   
   
 ## Preview  
-![ScreenShot](/screen.webp)
+![ScreenShot](/screen.gif)
 
 [Check preview on imgur](https://imgur.com/unZlSke)
 ## Compatibility  
