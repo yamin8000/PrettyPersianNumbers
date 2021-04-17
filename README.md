@@ -27,12 +27,16 @@
 **Kotlin**
 You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any number in different data types like `Byte`, `Short`, `Int`, `Long` or numbers as a `String`.
 ```kotlin
-    val word1 : String = Digits.spellToFarsi(input)
-    val word2 : String = Digits.spellToFarsi(12) // دوازده
+    val word1 : String = Digits().spellToFarsi(input)
+    val word2 : String = Digits().spellToFarsi(12) // دوازده
     //دوازده میلیارد و یک صد و بیست و سه میلیون و سی صد و دوازده هزار و یک صد و بیست و سه
-    val word3 : String = Digits.spellToFarsi(12_123_312_123)
+    val word3 : String = Digits().spellToFarsi(12_123_312_123)
     //پنج میلیون و یک صد و بیست و یک هزار و سی صد و بیست و یک
-    val word4 : String = Digits.spellToFarsi("5121321")
+    val word4 : String = Digits().spellToFarsi("5121321")
+    //چهارده هزار و پانصد ریال
+    val money1 : String = Digits().spellToIranMoney("14500")
+    //چهارده هزار و پانصد تومان
+    val money2 : String = Digits().spellToIranMoney("14500", IranCurrency.TOMAN)
 ```
 **Java**
 ```java
@@ -72,6 +76,8 @@ implementation("com.github.yamin8000:PrettyPersianNumbers:1.0.1")
 ``` 
 ## Features  
  - Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero to Vigintillion or more
+ - Convert numbers from `Byte`,`Short`, `Int`, `Long`, `String`, `BigInteger`
+ - Convert numbers straight to currency like: چهارده هزار و پانصد تومان see #Usage
  - Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
  - Negative numbers are supported
  - TODO adding support for `Float`/`Double` numbers

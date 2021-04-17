@@ -1,5 +1,6 @@
 package ir.yamin.digits
 
+import ir.yamin.digits.constants.IranCurrency
 import ir.yamin.digits.constants.PersianNumber
 import java.math.BigInteger
 
@@ -8,7 +9,7 @@ class Digits {
     /**
      * Spell number to Persian/Farsi words
      *
-     * @param number in any type like Byte/Short/Int/Long/String
+     * @param number in any type like Byte/Short/Int/Long/String/Big Integer
      * @return Persian representation of that number in String type
      */
     fun spellToFarsi(number : Any) : String {
@@ -21,8 +22,20 @@ class Digits {
             is Float -> "$number"
             is Double -> "$number"
             is String -> stringHandler(number)
+            is BigInteger -> bigIntegerHandler(number)
             else -> "$number"
         }
+    }
+    
+    /**
+     * Spell number to Persian/Farsi words plus Iran currency name
+     *
+     * @param number in any type like Byte/Short/Int/Long/String/Big Integer
+     * @param currency if no parameter is passed 'ریال' is default
+     * @return Persian representation of that number plus currency name in String type
+     */
+    fun spellToIranMoney(number : Any, currency : IranCurrency = IranCurrency.RIAL) : String {
+        return "${spellToFarsi(number)} ${currency.value}"
     }
     
     /**
@@ -136,6 +149,8 @@ class Digits {
             val temp = input.divide(tenMultiplier.key)
             if (temp >= BigInteger.ONE && temp < input) multiplierBig = tenMultiplier.key
         }
+        
+        if (multiplierBig == BigInteger.ZERO) return longHandler(input.toLong())
         
         val tenMultiplierDivisor = stringHandler("${input.divide(multiplierBig)}")
         val tenMultiplierName = when {
