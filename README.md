@@ -55,7 +55,7 @@ Add it in your root build.gradle at the end of repositories:
 **Step 2.** Add the dependency  
 ```groovy  
 dependencies {  
-    implementation 'com.github.yamin8000:PrettyPersianNumbers:1.0.1'  
+    implementation 'com.github.yamin8000:PrettyPersianNumbers:1.0.2'  
 }  
 ```  
 ### Maven  
@@ -64,20 +64,20 @@ dependencies {
 <dependency>
   <groupId>com.github.yamin8000</groupId>
   <artifactId>PrettyPersianNumbers</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <type>aar</type>
 </dependency>  
 ```  
 ### Gradle Kotlin DSL
 ```groovy  
 dependencies {  
-implementation("com.github.yamin8000:PrettyPersianNumbers:1.0.1")
+implementation("com.github.yamin8000:PrettyPersianNumbers:1.0.2")
 }  
 ``` 
 ## Features  
  - Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero to Vigintillion or more
  - Convert numbers from `Byte`,`Short`, `Int`, `Long`, `String`, `BigInteger`
- - Convert numbers straight to currency like: چهارده هزار و پانصد تومان see #Usage
+ - Convert numbers straight to currency like: چهارده هزار و پانصد تومان see [Usage](https://github.com/yamin8000/PrettyPersianNumbers#Usage)
  - Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
  - Negative numbers are supported
  - TODO adding support for `Float`/`Double` numbers

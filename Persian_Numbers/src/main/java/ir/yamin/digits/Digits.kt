@@ -34,6 +34,7 @@ class Digits {
      * @param currency if no parameter is passed 'ریال' is default
      * @return Persian representation of that number plus currency name in String type
      */
+    @JvmOverloads
     fun spellToIranMoney(number : Any, currency : IranCurrency = IranCurrency.RIAL) : String {
         return "${spellToFarsi(number)} ${currency.value}"
     }
