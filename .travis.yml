@@ -1,5 +1,4 @@
-language: android
-dist: trusty
+--- 
 android: 
   components: 
     - tools
@@ -8,12 +7,13 @@ android:
     - build-tools-30.0.3
     - android-30
     - extra-android-m2repository
-      licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+  licenses: 
+    - android-sdk-preview-license-52d11cd2
+    - android-sdk-license-.+
+    - google-gdk-license-.+
 before_install: 
   - "chmod +x gradlew"
+dist: trusty
 jdk: oraclejdk8
 language: android
 script: 
