@@ -1,6 +1,6 @@
 
 # Pretty Persian Numbers  
-  
+  [![Build](https://api.travis-ci.com/yamin8000/PrettyPersianNumbers.svg?branch=master)](https://travis-ci.com/github/yamin8000/PrettyPersianNumbers)
 > Convert numbers to Persian words  
 
   Read this page in Persian [here](https://github.com/yamin8000/PrettyPersianNumbers/wiki/Readme-Persian)
