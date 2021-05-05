@@ -2,3 +2,4 @@
 !/gpg-keys/
 !/gradle.properties
 !/src/main/java/ir/yamin/digits/Main.kt
+/gradle.properties

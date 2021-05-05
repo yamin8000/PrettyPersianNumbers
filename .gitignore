@@ -34,3 +34,4 @@ scripts/
 !/gradle.properties
 Persian_Numbers/gpg-keys/
 Persian_Numbers/gradle.properties
+/gradle.properties
