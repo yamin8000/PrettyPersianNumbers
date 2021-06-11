@@ -33,7 +33,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String number = s.toString();
-                textView.setText(new Digits().spellToIranMoney(number));
+                textView.setText(new Digits().spellToFarsi(number));
             }
         });
     }

@@ -7,9 +7,11 @@ import java.math.BigInteger
  */
 internal object PersianNumber {
     
+    //صدم، میلیونم، دهم و ...
+    internal const val TH = "م"
     internal const val MINUS = "منفی"
     internal const val RADIX = "ممیز"
-    private const val ZERO = "صفر"
+    internal const val ZERO = "صفر"
     internal const val ONE = "یک"
     private const val TWO = "دو"
     private const val THREE = "سه"
