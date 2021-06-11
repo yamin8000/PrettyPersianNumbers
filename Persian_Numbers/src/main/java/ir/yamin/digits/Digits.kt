@@ -212,7 +212,7 @@ class Digits {
                     
                     val integerName = bigIntegerHandler(integerPart)
                     val fractionName = bigIntegerHandler(BigInteger("$decimals"))
-                    return "$integerName ${PersianNumber.RADIX} $fractionName $multiplierName"
+                    return "$integerName ${PersianNumber.RADIX} $fractionName، $multiplierName"
                 }
             }
         } catch (exception : Exception) {
