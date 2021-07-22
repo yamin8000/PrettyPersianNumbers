@@ -25,7 +25,7 @@ class Digits {
             is Double -> bigDecimalHandler(BigDecimal(number))
             is String -> stringHandler(number)
             is BigInteger -> bigIntegerHandler(number)
-            else -> "$number"
+            else -> NaN
         }
         return result.trim()
     }

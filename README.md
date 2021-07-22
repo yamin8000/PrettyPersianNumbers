@@ -25,7 +25,7 @@
   Android Jellybean 4.1+/SDK 16+  
 ## Usage  
 **Kotlin**
-You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any number in different data types like `Byte`, `Short`, `Int`, `Long`, `BigInteger`, `BigDecimal` or numbers as a `String`.
+You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any number in different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal` or numbers as a `String`.
 ```kotlin
     val word1 : String = Digits().spellToFarsi(input)
     val word2 : String = Digits().spellToFarsi(12) // دوازده
@@ -76,11 +76,10 @@ implementation("com.github.yamin8000:PrettyPersianNumbers:1.0.3")
 ``` 
 ## Features  
  - Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero to Vigintillion or more
- - Convert numbers from `Byte`,`Short`, `Int`, `Long`, `String`, `BigInteger`
+ - Convert numbers from `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal`
  - Convert numbers straight to currency like: چهارده هزار و پانصد تومان see [Usage](https://github.com/yamin8000/PrettyPersianNumbers#Usage)
  - Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
  - Negative numbers are supported
- - support for `Float`/`Double` numbers
 
 ## Changelog  
 
