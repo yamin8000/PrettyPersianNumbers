@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "yaghoob",
+      "name": "Yaghoob Siahmargooei",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9123711?v=4",
+      "profile": "http://yyss.ir",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "PrettyPersianNumbers",
+  "projectOwner": "yamin8000",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
