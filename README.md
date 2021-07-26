@@ -1,9 +1,7 @@
 # Pretty
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <img src="logo.png" title="" alt="logo" data-align="center">
@@ -140,19 +138,16 @@ dependencies {
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
 <!-- prettier-ignore-start -->
-
 <!-- markdownlint-disable -->
-
 <table>
   <tr>
     <td align="center"><a href="http://yyss.ir"><img src="https://avatars.githubusercontent.com/u/9123711?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yaghoob Siahmargooei</b></sub></a><br /><a href="https://github.com/yamin8000/PrettyPersianNumbers/issues?q=author%3Ayaghoob" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/yamin8000"><img src="https://avatars.githubusercontent.com/u/5001708?v=4?s=100" width="100px;" alt=""/><br /><sub><b>YaMiN</b></sub></a><br /><a href="https://github.com/yamin8000/PrettyPersianNumbers/commits?author=yamin8000" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-restore -->
-
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
