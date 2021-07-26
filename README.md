@@ -1,6 +1,9 @@
 # Pretty
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <img src="logo.png" title="" alt="logo" data-align="center">
@@ -9,7 +12,21 @@
 
 > Convert numbers to Persian words  
 
-  Read this page in
+---  
+
+| -     | -                               |
+| -----:|:------------------------------- |
+| 📺    | [Preview](#Preview)             |
+| 📱    | [Compatibility](#Compatibility) |
+| 💻    | [Usage](#Usage)                 |
+| 📩    | [Download](#Download)           |
+| 📋    | [Features](#Features)           |
+| 🧾    | [Changelog](#Changelog)         |
+| 🏆    | [Credits](#Credits)             |
+| 👨‍💻 | [Contribution](#Contributors ✨) |
+| ⚖️    | [License](#License)             |
+
+---
 
 ## Preview
 
@@ -108,10 +125,6 @@ dependencies {
 
   [https://github.com/yaghoob](https://github.com/yaghoob)
 
-## Contribution
-
-Any contribution is welcome, For Persian speakers (:iran: :afghanistan:) creating issues in Persian is also allowed.  
-
 ## License
 
 > Pretty Persian Numbers is licensed under the **[GNU General  
@@ -127,8 +140,11 @@ Any contribution is welcome, For Persian speakers (:iran: :afghanistan:) creatin
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tr>
     <td align="center"><a href="http://yyss.ir"><img src="https://avatars.githubusercontent.com/u/9123711?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yaghoob Siahmargooei</b></sub></a><br /><a href="https://github.com/yamin8000/PrettyPersianNumbers/issues?q=author%3Ayaghoob" title="Bug reports">🐛</a></td>
@@ -136,6 +152,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
