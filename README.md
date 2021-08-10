@@ -21,7 +21,6 @@
 | 📋    | [Features](#Features)           |
 | 🧾    | [Changelog](#Changelog)         |
 | 🏆    | [Credits](#Credits)             |
-| 👨‍💻 | [Contribution](#Contributors ✨) |
 | ⚖️    | [License](#License)             |
 
 ---
@@ -52,6 +51,13 @@ You just need to create an instance from `Digits` class and call `spellToFarsi` 
     val money1 : String = Digits().spellToIranMoney("14500")
     //چهارده هزار و پانصد تومان
     val money2 : String = Digits().spellToIranMoney("14500", IranCurrency.TOMAN)
+    //سه ممیز چهارده، صدم
+    val decimalWord : String = Digits().spelltoFarsi(3.14)
+```
+in Kotlin you can also take advantage of extension methods like so:
+```kotlin
+  500.spell()
+  "12.51".spell()
 ```
 
 **Java**
@@ -79,7 +85,7 @@ repositories {
 
 ```groovy
 dependencies {
-    implementation 'com.github.yamin8000:PrettyPersianNumbers:1.0.3'
+    implementation 'com.github.yamin8000:PrettyPersianNumbers:$digits_last_version'
 }
 ```
 
@@ -91,7 +97,7 @@ dependencies {
 <dependency>
   <groupId>com.github.yamin8000</groupId>
   <artifactId>PrettyPersianNumbers</artifactId>
-  <version>1.0.3</version>
+  <version>$digits_last_version</version>
   <type>aar</type>
 </dependency>  
 ```
@@ -100,13 +106,13 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation("com.github.yamin8000:PrettyPersianNumbers:1.0.3")
+    implementation("com.github.yamin8000:PrettyPersianNumbers:$digits_last_version")
 }
 ```
 
 ## Features
 
-- Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero to Vigintillion or more
+- Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero to `Vigintillion` or more
 - Convert numbers from `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal`
 - Convert numbers straight to currency like: چهارده هزار و پانصد تومان see [Usage](https://github.com/yamin8000/PrettyPersianNumbers#Usage)
 - Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
@@ -114,6 +120,7 @@ dependencies {
 
 ## Changelog
 
+- **1.0.5** [more info](https://github.com/yamin8000/PrettyPersianNumbers/releases/tag/1.0.5)
 - **1.0.3** add support for decimal numbers
 - **1.0.2** bug fixes
 - **1.0.1** bug fixes, added support for big numbers
