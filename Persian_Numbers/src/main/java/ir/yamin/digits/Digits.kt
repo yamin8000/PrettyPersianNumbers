@@ -8,10 +8,10 @@ import ir.yamin.digits.constants.PersianNumber.AND
 import ir.yamin.digits.constants.PersianNumber.MINUS
 import ir.yamin.digits.constants.PersianNumber.RADIX
 import ir.yamin.digits.constants.PersianNumber.ZERO
-import ir.yamin.digits.constants.PersianNumber.bigIntegerMultipliers
+import ir.yamin.digits.constants.PersianNumber.bigIntegerTenProducts
 import ir.yamin.digits.constants.PersianNumber.bigTen
 import ir.yamin.digits.constants.PersianNumber.singleDigits
-import ir.yamin.digits.constants.PersianNumber.tenMultipliers
+import ir.yamin.digits.constants.PersianNumber.tenProducts
 import ir.yamin.digits.constants.PersianNumber.threeDigits
 import ir.yamin.digits.constants.PersianNumber.twoDigits
 import java.math.BigDecimal
@@ -20,6 +20,9 @@ import java.math.BigInteger
 private const val NaN = "NaN"
 private const val ZERO_ONLY_REGEX = "[0]+"
 private const val DECIMAL_REGEX = "\\d*\\.\\d+"
+private const val zeroChar = '0'
+private const val dashChar = '-'
+private const val dotChar = '.'
 
 class Digits {
     
@@ -72,39 +75,20 @@ class Digits {
      * @return Persian representation of that number
      */
     private fun stringHandler(number : String) : String {
-        try {
-            val zeroChar = '0'
-            if (number.isBlank()) return NaN
-            when (number[0]) {
-                '-' -> return handleStringsWithMinusPrefix(number)
-                //when input starts with 0
-                //handling numbers that starts with zero and removes starting zeros
-                zeroChar -> {
-                    if (zeroOnlyRegex.matches(number)) return ZERO
-                    /**
-                     * this can probably be replaced with some smart-ass regex,
-                     * but that makes it more complex
-                     *
-                     * this loop re-call this method with version of this number that doesn't contain starting zeros
-                     */
-                    for (index in number.indices) {
-                        if (number[index] == zeroChar) continue
-                        else return stringHandler(number.substring(index))
-                    }
-                }
-                //numbers like .0, .14 are decimals too
-                '.' -> if (decimalRegex.matches(number)) return bigDecimalHandler(BigDecimal(number))
-                else -> if (decimalRegex.matches(number)) return bigDecimalHandler(BigDecimal(number))
-            }
-            
-            return when (number.length) {
-                1 -> singleDigits[number.toLong()] ?: NaN
-                2 -> twoDigitHandler(number)
-                3 -> threeDigitsHandler(number)
-                else -> digitsHandler(number)
-            }
-        } catch (exception : Exception) {
-            return NaN
+        if (number.isBlank()) return NaN
+        when (number.first()) {
+            dashChar -> return handleStringsWithMinusPrefix(number)
+            zeroChar -> return handleStringsWithZeroPrefix(number)
+            //numbers like .0, .14 are decimals too
+            dotChar -> if (decimalRegex.matches(number)) return bigDecimalHandler(BigDecimal(number))
+            else -> if (decimalRegex.matches(number)) return bigDecimalHandler(BigDecimal(number))
+        }
+        
+        return when (number.length) {
+            1 -> singleDigits[number.toLong()] ?: NaN
+            2 -> twoDigitHandler(number)
+            3 -> threeDigitsHandler(number)
+            else -> digitsHandler(number)
         }
     }
     
@@ -132,6 +116,27 @@ class Digits {
         }
         //when input is only -
         else NaN
+    }
+    
+    /**
+     * handling numbers that starts with zero and removes starting zeros
+     *
+     * @param number string that starts with zero
+     * @return string with starting zeros removed
+     */
+    private fun handleStringsWithZeroPrefix(number : String) : String {
+        if (zeroOnlyRegex.matches(number)) return ZERO
+        /**
+         * this can probably be replaced with some smart-ass regex with lookahead,
+         * but that makes it more complex
+         *
+         * this loop re-call this method with version of this number that doesn't contain starting zeros
+         * or finds first occurrence of a non-zero number and makes that starting index of new string
+         * suppose input number is 000012
+         * then starting index is 4 and new string is 12
+         */
+        return number.indices.firstOrNull { number[it] != zeroChar }
+                   ?.let { stringHandler(number.substring(it)) } ?: ZERO
     }
     
     /**
@@ -172,58 +177,86 @@ class Digits {
      * @see Long.MAX_VALUE
      */
     private fun digitsHandler(number : String) : String {
-        return if (number.length > 18) {
-            val bigInteger = number.toBigInteger()
-            bigIntegerHandler(bigInteger)
-        } else longHandler(number.toLong())
+        val bigInteger = number.toBigInteger()
+        return when (bigInteger.compareTo(BigInteger.valueOf(Long.MAX_VALUE))) {
+            0, -1 -> longHandler(number.toLong())
+            1 -> bigIntegerHandler(bigInteger)
+            else -> NaN
+        }
     }
     
+    /**
+     * handle numbers that can be fitted in a long variable
+     *
+     * @param longNumber input in long format
+     * @return persian representation of that number
+     */
     private fun longHandler(longNumber : Long) : String {
         singleDigits[longNumber]?.let { return it }
         twoDigits[longNumber]?.let { return it }
         threeDigits[longNumber]?.let { return it }
-        tenMultipliers[longNumber]?.let { return "${PersianNumber.ONE} $it" }
+        tenProducts[longNumber]?.let { return "${PersianNumber.ONE} $it" }
         
-        var multiplier = 0L
-        if (longNumber >= 1_000L) {
-            for (tenMultiplier in tenMultipliers) if (longNumber / tenMultiplier.key in 1 until longNumber) multiplier = tenMultiplier.key
-        }
-        if (multiplier == 0L) return stringHandler("$longNumber")
-        val tenMultiplierDivisor = stringHandler("${longNumber / multiplier}")
-        val tenMultiplierName = tenMultipliers[multiplier] ?: ""
-        if (longNumber % multiplier == 0L) return "$tenMultiplierDivisor $tenMultiplierName"
-        val remainder = stringHandler("${longNumber - (longNumber / multiplier) * multiplier}")
-        return "$tenMultiplierDivisor $tenMultiplierName و $remainder"
+        //biggest ten product before input number
+        val biggestTenProduct = findBiggestTenProductBeforeInputNumber(longNumber)
+        if (biggestTenProduct == 0L) return stringHandler("$longNumber")
+        
+        val tenProductDivisor = stringHandler("${longNumber / biggestTenProduct}")
+        val tenProductName = tenProducts[biggestTenProduct] ?: ""
+        val remainderNumber = longNumber % biggestTenProduct
+        if (remainderNumber == 0L) return "$tenProductDivisor $tenProductName"
+        val remainderNumberName = stringHandler("$remainderNumber")
+        return "$tenProductDivisor $tenProductName و $remainderNumberName"
     }
     
-    // TODO: 2021-07-29 reducing cognitive complexity 
+    /**
+     * Find biggest ten product before input number,
+     * biggest ten product before 2220 is 1000
+     *
+     * @param longNumber
+     * @return
+     */
+    private fun findBiggestTenProductBeforeInputNumber(longNumber : Long) : Long {
+        var biggestTenProduct = 0L
+        if (longNumber >= 1_000L) {
+            for (product in tenProducts) if (longNumber / product.key in 1 until longNumber) biggestTenProduct = product.key
+        }
+        return biggestTenProduct
+    }
+    
     private fun bigIntegerHandler(input : BigInteger) : String {
-        var multiplierBig = zeroBigInteger
+        val biggestTenProduct = findBiggestTenProductBeforeInputNumber(input)
+        
+        if (biggestTenProduct == zeroBigInteger) return longHandler(input.toLong())
+        
+        val tenProductDivisor = stringHandler("${input.divide(biggestTenProduct)}")
+        
+        var tenProductName = NaN
+        bigIntegerTenProducts[biggestTenProduct]?.let { tenProductName = it }
+        tenProducts[biggestTenProduct.toLong()]?.let { tenProductName = it }
+        
+        val remainderNumber = input.mod(biggestTenProduct)
+        if (remainderNumber == zeroBigInteger) return "$tenProductDivisor $tenProductName"
+        val remainderNumberName = stringHandler("$remainderNumber")
+        return "$tenProductDivisor $tenProductName $AND $remainderNumberName"
+    }
+    
+    private fun findBiggestTenProductBeforeInputNumber(input : BigInteger) : BigInteger {
+        var biggestTenProduct = zeroBigInteger
         
         if (input >= BigInteger("1000")) {
-            for (tenMultiplier in tenMultipliers) {
-                val temp = input.divide(tenMultiplier.key.toBigInteger())
-                if (temp >= oneBigInteger && temp < input) multiplierBig = tenMultiplier.key.toBigInteger()
+            for (product in tenProducts) {
+                val temp = input.divide(product.key.toBigInteger())
+                if (temp >= oneBigInteger && temp < input) biggestTenProduct = product.key.toBigInteger()
             }
         }
         if (input >= bigTen.pow(21)) {
-            for (tenMultiplier in bigIntegerMultipliers) {
-                val temp = input.divide(tenMultiplier.key)
-                if (temp >= oneBigInteger && temp < input) multiplierBig = tenMultiplier.key
+            for (product in bigIntegerTenProducts) {
+                val temp = input.divide(product.key)
+                if (temp >= oneBigInteger && temp < input) biggestTenProduct = product.key
             }
         }
-        
-        if (multiplierBig == zeroBigInteger) return longHandler(input.toLong())
-        
-        val tenMultiplierDivisor = stringHandler("${input.divide(multiplierBig)}")
-        
-        var tenMultiplierName = NaN
-        bigIntegerMultipliers[multiplierBig]?.let { tenMultiplierName = it }
-        tenMultipliers[multiplierBig.toLong()]?.let { tenMultiplierName = it }
-        
-        if (input.mod(multiplierBig) == zeroBigInteger) return "$tenMultiplierDivisor $tenMultiplierName"
-        val remainder = stringHandler("${input.minus(input.divide(multiplierBig).multiply(multiplierBig))}")
-        return "$tenMultiplierDivisor $tenMultiplierName $AND $remainder"
+        return biggestTenProduct
     }
     
     /**
@@ -243,51 +276,59 @@ class Digits {
      * @return string representation of given decimal number in farsi
      */
     private fun bigDecimalHandler(bigDecimal : BigDecimal) : String {
-        try {
-            val zeroDecimal = BigDecimal.ZERO
-            when (bigDecimal.compareTo(zeroDecimal)) {
-                -1 -> return "$MINUS ${bigDecimalHandler(bigDecimal.abs())}"
-                0 -> return ZERO
-                1 -> {
-                    //dividing integer and fraction part from decimal
-                    val integerPart = bigDecimal.toBigInteger()
-                    val fraction = bigDecimal.remainder(BigDecimal.ONE)
-                    //if input only contains integers and no fraction like 1.0, 14.5
-                    val isIntegerOnly = fraction == zeroDecimal || fraction.compareTo(zeroDecimal) == 0
-                    if (isIntegerOnly) return bigIntegerHandler(integerPart)
-                    //if bigDecimal is 3.14 then decimals is 14
-                    val decimals = fraction.scaleByPowerOfTen(fraction.scale())
-                    //if bigDecimal is 3.14 then multiplier is 100 or صدم
-                    val multiplier = bigTen.pow(fraction.scale())
-                    //add م to صد so it becomes صدم
-                    var multiplierName = "${bigIntegerHandler(multiplier)}${PersianNumber.TH}"
-                    /*
-                    since we don't want return value to be سه ممیز چهاردم، یک صدم
-                    then we remove that part
-                    */
-                    val persianOne = PersianNumber.ONE
-                    if (multiplierName.startsWith(persianOne)) {
-                        multiplierName = multiplierName.replace(persianOne, "").trim()
-                    }
-                    //if input is only fraction like 0.5, 0.0002
-                    val isFractionOnly = integerPart == zeroBigInteger || integerPart.compareTo(
-                            zeroBigInteger) == 0
-                    val fractionName = bigIntegerHandler(BigInteger("$decimals"))
-                    if (isFractionOnly) return "$fractionName $multiplierName"
-                    //if input is normal like 3.14, 3.121323, 15.00001
-                    val integerName = bigIntegerHandler(integerPart)
-                    return "$integerName $RADIX $fractionName، $multiplierName"
-                }
+        val zeroDecimal = BigDecimal.ZERO
+        when (bigDecimal.compareTo(zeroDecimal)) {
+            -1 -> return "$MINUS ${bigDecimalHandler(bigDecimal.abs())}"
+            0 -> return ZERO
+            1 -> {
+                //dividing integer and fraction part from decimal
+                val integerPart = bigDecimal.toBigInteger()
+                val fraction = bigDecimal.remainder(BigDecimal.ONE)
+                //if input only contains integers and no fraction like 1.0, 14.5
+                val isIntegerOnly = fraction == zeroDecimal || fraction.compareTo(zeroDecimal) == 0
+                if (isIntegerOnly) return bigIntegerHandler(integerPart)
+                //if bigDecimal is 3.14 then decimals is 14
+                val decimals = fraction.scaleByPowerOfTen(fraction.scale())
+                //if bigDecimal is 3.14 then ten product is 100 or صدم
+                val tenProduct = bigTen.pow(fraction.scale())
+                //add م to صد so it becomes صدم
+                var tenProductName = "${bigIntegerHandler(tenProduct)}${PersianNumber.TH}"
+                tenProductName = normalizeTenProductName(tenProductName)
+                //if input is only fraction like 0.5, 0.0002
+                val isFractionOnly = integerPart == zeroBigInteger || integerPart.compareTo(
+                        zeroBigInteger) == 0
+                val fractionName = bigIntegerHandler(BigInteger("$decimals"))
+                if (isFractionOnly) return "$fractionName $tenProductName"
+                //if input is normal like 3.14, 3.121323, 15.00001
+                val integerName = bigIntegerHandler(integerPart)
+                return "$integerName $RADIX $fractionName، $tenProductName"
             }
-        } catch (exception : Exception) {
-            return NaN
         }
         return NaN
     }
     
     /**
+     * Normalize ten product name,
+     *
+     * since we don't want return value to be سه ممیز چهارده، یک صدم
+     * and be سه ممیز چهارده، صدم
+     * then we remove that part
+     *
+     * @param tenProductName
+     * @return
+     */
+    private fun normalizeTenProductName(tenProductName : String) : String {
+        var tenProductName1 = tenProductName
+        val persianOne = PersianNumber.ONE
+        if (tenProductName1.startsWith(persianOne)) {
+            tenProductName1 = tenProductName1.replace(persianOne, "").trim()
+        }
+        return tenProductName1
+    }
+    
+    /**
      * this method check if input
-     * is only contains numbers
+     * is only containing numbers
      *
      * @param input is number in String type
      * @return true if only contains number characters

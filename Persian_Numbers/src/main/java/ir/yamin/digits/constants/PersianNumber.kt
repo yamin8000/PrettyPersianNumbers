@@ -74,19 +74,19 @@ internal object PersianNumber {
                            )
     
     /**
-     * Ten multipliers representation
+     * Products of Ten representation
      */
-    val tenMultipliers = mapOf(
+    val tenProducts = mapOf(
             1_000L to THOUSAND, 1_000_000L to MILLION, 1_000_000_000L to MILLIARD,
             1_000_000_000_000L to TRILLION, 1_000_000_000_000_000L to QUADRILLION,
             1_000_000_000_000_000_000L to QUINTILLION,
-                              )
+                           )
     
     /**
-     * Big integer multipliers representation
+     * Big integer Products of Ten representation
      */
     internal val bigTen = BigInteger("10")
-    val bigIntegerMultipliers = mapOf(
+    val bigIntegerTenProducts = mapOf(
             bigTen.pow(21) to SEXTILLION, bigTen.pow(24) to SEPTILLION,
             bigTen.pow(27) to OCTILLION, bigTen.pow(30) to NONILLION,
             bigTen.pow(33) to DECILLION, bigTen.pow(36) to UNDECILLION,
