@@ -8,10 +8,10 @@ import ir.yamin.digits.constants.PersianNumber.AND
 import ir.yamin.digits.constants.PersianNumber.MINUS
 import ir.yamin.digits.constants.PersianNumber.RADIX
 import ir.yamin.digits.constants.PersianNumber.ZERO
-import ir.yamin.digits.constants.PersianNumber.bigIntegerTenProducts
+import ir.yamin.digits.constants.PersianNumber.bigIntegerTenPowers
 import ir.yamin.digits.constants.PersianNumber.bigTen
 import ir.yamin.digits.constants.PersianNumber.singleDigits
-import ir.yamin.digits.constants.PersianNumber.tenProducts
+import ir.yamin.digits.constants.PersianNumber.tenPowers
 import ir.yamin.digits.constants.PersianNumber.threeDigits
 import ir.yamin.digits.constants.PersianNumber.twoDigits
 import java.math.BigDecimal
@@ -195,68 +195,68 @@ class Digits {
         singleDigits[longNumber]?.let { return it }
         twoDigits[longNumber]?.let { return it }
         threeDigits[longNumber]?.let { return it }
-        tenProducts[longNumber]?.let { return "${PersianNumber.ONE} $it" }
+        tenPowers[longNumber]?.let { return "${PersianNumber.ONE} $it" }
         
-        //biggest ten product before input number
-        val biggestTenProduct = findBiggestTenProductBeforeInputNumber(longNumber)
-        if (biggestTenProduct == 0L) return stringHandler("$longNumber")
+        //biggest ten power before input number
+        val biggestTenPower = findBiggestTenPowerBeforeInputNumber(longNumber)
+        if (biggestTenPower == 0L) return stringHandler("$longNumber")
         
-        val tenProductDivisor = stringHandler("${longNumber / biggestTenProduct}")
-        val tenProductName = tenProducts[biggestTenProduct] ?: ""
-        val remainderNumber = longNumber % biggestTenProduct
-        if (remainderNumber == 0L) return "$tenProductDivisor $tenProductName"
+        val tenPowerDivisor = stringHandler("${longNumber / biggestTenPower}")
+        val tenPowerName = tenPowers[biggestTenPower] ?: ""
+        val remainderNumber = longNumber % biggestTenPower
+        if (remainderNumber == 0L) return "$tenPowerDivisor $tenPowerName"
         val remainderNumberName = stringHandler("$remainderNumber")
-        return "$tenProductDivisor $tenProductName و $remainderNumberName"
+        return "$tenPowerDivisor $tenPowerName و $remainderNumberName"
     }
     
     /**
-     * Find biggest ten product before input number,
-     * biggest ten product before 2220 is 1000
+     * Find biggest ten power before input number,
+     * biggest ten power before 2220 is 1000
      *
      * @param longNumber
      * @return
      */
-    private fun findBiggestTenProductBeforeInputNumber(longNumber : Long) : Long {
-        var biggestTenProduct = 0L
+    private fun findBiggestTenPowerBeforeInputNumber(longNumber : Long) : Long {
+        var biggestTenPower = 0L
         if (longNumber >= 1_000L) {
-            for (product in tenProducts) if (longNumber / product.key in 1 until longNumber) biggestTenProduct = product.key
+            for (power in tenPowers) if (longNumber / power.key in 1 until longNumber) biggestTenPower = power.key
         }
-        return biggestTenProduct
+        return biggestTenPower
     }
     
     private fun bigIntegerHandler(input : BigInteger) : String {
-        val biggestTenProduct = findBiggestTenProductBeforeInputNumber(input)
+        val biggestTenPower = findBiggestTenPowerBeforeInputNumber(input)
         
-        if (biggestTenProduct == zeroBigInteger) return longHandler(input.toLong())
+        if (biggestTenPower == zeroBigInteger) return longHandler(input.toLong())
         
-        val tenProductDivisor = stringHandler("${input.divide(biggestTenProduct)}")
+        val tenPowerDivisor = stringHandler("${input.divide(biggestTenPower)}")
         
-        var tenProductName = NaN
-        bigIntegerTenProducts[biggestTenProduct]?.let { tenProductName = it }
-        tenProducts[biggestTenProduct.toLong()]?.let { tenProductName = it }
+        var tenPowerName = NaN
+        bigIntegerTenPowers[biggestTenPower]?.let { tenPowerName = it }
+        tenPowers[biggestTenPower.toLong()]?.let { tenPowerName = it }
         
-        val remainderNumber = input.mod(biggestTenProduct)
-        if (remainderNumber == zeroBigInteger) return "$tenProductDivisor $tenProductName"
+        val remainderNumber = input.mod(biggestTenPower)
+        if (remainderNumber == zeroBigInteger) return "$tenPowerDivisor $tenPowerName"
         val remainderNumberName = stringHandler("$remainderNumber")
-        return "$tenProductDivisor $tenProductName $AND $remainderNumberName"
+        return "$tenPowerDivisor $tenPowerName $AND $remainderNumberName"
     }
     
-    private fun findBiggestTenProductBeforeInputNumber(input : BigInteger) : BigInteger {
-        var biggestTenProduct = zeroBigInteger
+    private fun findBiggestTenPowerBeforeInputNumber(input : BigInteger) : BigInteger {
+        var biggestTenPower = zeroBigInteger
         
         if (input >= BigInteger("1000")) {
-            for (product in tenProducts) {
-                val temp = input.divide(product.key.toBigInteger())
-                if (temp >= oneBigInteger && temp < input) biggestTenProduct = product.key.toBigInteger()
+            for (power in tenPowers) {
+                val temp = input.divide(power.key.toBigInteger())
+                if (temp >= oneBigInteger && temp < input) biggestTenPower = power.key.toBigInteger()
             }
         }
         if (input >= bigTen.pow(21)) {
-            for (product in bigIntegerTenProducts) {
-                val temp = input.divide(product.key)
-                if (temp >= oneBigInteger && temp < input) biggestTenProduct = product.key
+            for (power in bigIntegerTenPowers) {
+                val temp = input.divide(power.key)
+                if (temp >= oneBigInteger && temp < input) biggestTenPower = power.key
             }
         }
-        return biggestTenProduct
+        return biggestTenPower
     }
     
     /**
@@ -289,41 +289,41 @@ class Digits {
                 if (isIntegerOnly) return bigIntegerHandler(integerPart)
                 //if bigDecimal is 3.14 then decimals is 14
                 val decimals = fraction.scaleByPowerOfTen(fraction.scale())
-                //if bigDecimal is 3.14 then ten product is 100 or صدم
-                val tenProduct = bigTen.pow(fraction.scale())
+                //if bigDecimal is 3.14 then ten power is 100 or صدم
+                val tenPower = bigTen.pow(fraction.scale())
                 //add م to صد so it becomes صدم
-                var tenProductName = "${bigIntegerHandler(tenProduct)}${PersianNumber.TH}"
-                tenProductName = normalizeTenProductName(tenProductName)
+                var tenPowerName = "${bigIntegerHandler(tenPower)}${PersianNumber.TH}"
+                tenPowerName = normalizeTenPowerName(tenPowerName)
                 //if input is only fraction like 0.5, 0.0002
                 val isFractionOnly = integerPart == zeroBigInteger || integerPart.compareTo(
                         zeroBigInteger) == 0
                 val fractionName = bigIntegerHandler(BigInteger("$decimals"))
-                if (isFractionOnly) return "$fractionName $tenProductName"
+                if (isFractionOnly) return "$fractionName $tenPowerName"
                 //if input is normal like 3.14, 3.121323, 15.00001
                 val integerName = bigIntegerHandler(integerPart)
-                return "$integerName $RADIX $fractionName، $tenProductName"
+                return "$integerName $RADIX $fractionName، $tenPowerName"
             }
         }
         return NaN
     }
     
     /**
-     * Normalize ten product name,
+     * Normalize ten power name,
      *
      * since we don't want return value to be سه ممیز چهارده، یک صدم
      * and be سه ممیز چهارده، صدم
      * then we remove that part
      *
-     * @param tenProductName
-     * @return
+     * @param input un-normal ten power name
+     * @return normalized ten power name
      */
-    private fun normalizeTenProductName(tenProductName : String) : String {
-        var tenProductName1 = tenProductName
+    private fun normalizeTenPowerName(input : String) : String {
+        var tenPowerName = input
         val persianOne = PersianNumber.ONE
-        if (tenProductName1.startsWith(persianOne)) {
-            tenProductName1 = tenProductName1.replace(persianOne, "").trim()
+        if (tenPowerName.startsWith(persianOne)) {
+            tenPowerName = tenPowerName.replace(persianOne, "").trim()
         }
-        return tenProductName1
+        return tenPowerName
     }
     
     /**

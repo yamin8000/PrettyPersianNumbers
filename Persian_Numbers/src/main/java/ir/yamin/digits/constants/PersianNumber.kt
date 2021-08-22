@@ -76,17 +76,17 @@ internal object PersianNumber {
     /**
      * Products of Ten representation
      */
-    val tenProducts = mapOf(
+    val tenPowers = mapOf(
             1_000L to THOUSAND, 1_000_000L to MILLION, 1_000_000_000L to MILLIARD,
             1_000_000_000_000L to TRILLION, 1_000_000_000_000_000L to QUADRILLION,
             1_000_000_000_000_000_000L to QUINTILLION,
-                           )
+                         )
     
     /**
      * Big integer Products of Ten representation
      */
     internal val bigTen = BigInteger("10")
-    val bigIntegerTenProducts = mapOf(
+    val bigIntegerTenPowers = mapOf(
             bigTen.pow(21) to SEXTILLION, bigTen.pow(24) to SEPTILLION,
             bigTen.pow(27) to OCTILLION, bigTen.pow(30) to NONILLION,
             bigTen.pow(33) to DECILLION, bigTen.pow(36) to UNDECILLION,
@@ -95,5 +95,5 @@ internal object PersianNumber {
             bigTen.pow(51) to SEXDECILLION, bigTen.pow(54) to SEPTENDECILLION,
             bigTen.pow(57) to OCTODECILLION, bigTen.pow(60) to NOVEMDECILLION,
             bigTen.pow(63) to VIGINTILLION,
-                                     )
+                                   )
 }
