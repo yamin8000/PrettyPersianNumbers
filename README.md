@@ -38,6 +38,7 @@
 ## Usage
 
 **Kotlin**
+
 You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any number in different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal` or numbers as a `String`.
 
 ```kotlin
