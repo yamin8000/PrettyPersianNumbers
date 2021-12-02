@@ -6,22 +6,22 @@
 
 <img src="logo.png" title="" alt="logo" data-align="center">
 
-  [![Build](https://api.travis-ci.com/yamin8000/PrettyPersianNumbers.svg?branch=master)](https://travis-ci.com/github/yamin8000/PrettyPersianNumbers)
-
-> Convert numbers to Persian words  
+[![Build](https://api.travis-ci.com/yamin8000/PrettyPersianNumbers.svg?branch=master)](https://travis-ci.com/github/yamin8000/PrettyPersianNumbers)
+[![javadoc](https://javadoc.io/badge2/com.github.yamin8000/PrettyPersianNumbers/javadoc.svg)](https://javadoc.io/doc/com.github.yamin8000/PrettyPersianNumbers)
+> Convert numbers to Persian words
 
 ---  
 
-| -     | -                               |
-| -----:|:------------------------------- |
-| 📺    | [Preview](#Preview)             |
-| 📱    | [Compatibility](#Compatibility) |
-| 💻    | [Usage](#Usage)                 |
-| 📩    | [Download](#Download)           |
-| 📋    | [Features](#Features)           |
-| 🧾    | [Changelog](#Changelog)         |
-| 🏆    | [Credits](#Credits)             |
-| ⚖️    | [License](#License)             |
+|  -   |                -                 |
+|:----:|:--------------------------------:|
+|  📺  |       [Preview](#Preview)        |
+|  📱  | [Compatibility](#Compatibility)  |
+|  💻  |         [Usage](#Usage)          |
+|  📩  |      [Download](#Download)       |
+|  📋  |      [Features](#Features)       |
+|  🧾  |     [Changelog](#Changelog)      |
+|  🏆  |       [Credits](#Credits)        |
+|  ⚖️  |       [License](#License)        |
 
 ---
 
@@ -33,48 +33,53 @@
 
 ## Compatibility
 
-  Android Jellybean **4.1+**/SDK 16+  
+Android Jellybean **4.1+**/SDK 16+
 
 ## Usage
 
 **Kotlin**
 
-You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any number in different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal` or numbers as a `String`.
+You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any
+number in different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`
+, `BigDecimal` or numbers as a `String`.
 
 ```kotlin
-    val word1 : String = Digits().spellToFarsi(input)
-    val word2 : String = Digits().spellToFarsi(12) // دوازده
-    //دوازده میلیارد و یک صد و بیست و سه میلیون و سی صد و دوازده هزار و یک صد و بیست و سه
-    val word3 : String = Digits().spellToFarsi(12_123_312_123)
-    //پنج میلیون و یک صد و بیست و یک هزار و سی صد و بیست و یک
-    val word4 : String = Digits().spellToFarsi("5121321")
-    //چهارده هزار و پانصد ریال
-    val money1 : String = Digits().spellToIranMoney("14500")
-    //چهارده هزار و پانصد تومان
-    val money2 : String = Digits().spellToIranMoney("14500", IranCurrency.TOMAN)
-    //سه ممیز چهارده، صدم
-    val decimalWord : String = Digits().spelltoFarsi(3.14)
+val word1: String = Digits().spellToFarsi(input)
+val word2: String = Digits().spellToFarsi(12) // دوازده
+//دوازده میلیارد و یک صد و بیست و سه میلیون و سی صد و دوازده هزار و یک صد و بیست و سه
+val word3: String = Digits().spellToFarsi(12_123_312_123)
+//پنج میلیون و یک صد و بیست و یک هزار و سی صد و بیست و یک
+val word4: String = Digits().spellToFarsi("5121321")
+//چهارده هزار و پانصد ریال
+val money1: String = Digits().spellToIranMoney("14500")
+//چهارده هزار و پانصد تومان
+val money2: String = Digits().spellToIranMoney("14500", IranCurrency.TOMAN)
+//سه ممیز چهارده، صدم
+val decimalWord: String = Digits().spelltoFarsi(3.14)
 ```
-in Kotlin you can also take advantage of extension methods like so:
+
+in Kotlin, you can also take advantage of extension methods like so:
+
 ```kotlin
-  500.spell()
-  "12.51".spell()
+500.spell()
+"12.51".spell()
 ```
 
 **Java**
 
 ```java
-String persianNumber = new Digits().spellToFarsi("1231");
+String persianNumber=new Digits().spellToFarsi("1231");
 ```
 
 ## Download
 
-Find latest version from [Maven Artifact](https://search.maven.org/artifact/com.github.yamin8000/PrettyPersianNumbers)
+Find the latest version
+from [Maven Artifact](https://search.maven.org/artifact/com.github.yamin8000/PrettyPersianNumbers)
 
 ### Gradle Groovy DSL
 
 **Step 1.** Add the Maven repository to your build file  
-Add it in your root build.gradle at the end of repositories:  
+Add it in your root build.gradle at the end of repositories:
 
 ```groovy
 repositories {
@@ -82,7 +87,7 @@ repositories {
 }
 ```
 
-**Step 2.** Add the dependency  
+**Step 2.** Add the dependency
 
 ```groovy
 dependencies {
@@ -92,14 +97,14 @@ dependencies {
 
 ### Maven
 
- Add the dependency  
+Add the dependency
 
 ```xml
 <dependency>
-  <groupId>com.github.yamin8000</groupId>
-  <artifactId>PrettyPersianNumbers</artifactId>
-  <version>$digits_last_version</version>
-  <type>aar</type>
+    <groupId>com.github.yamin8000</groupId>
+    <artifactId>PrettyPersianNumbers</artifactId>
+    <version>$digits_last_version</version>
+    <type>aar</type>
 </dependency>  
 ```
 
@@ -113,9 +118,11 @@ dependencies {
 
 ## Features
 
-- Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero to `Vigintillion` or more
+- Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From
+  Zero to `Vigintillion` or more
 - Convert numbers from `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal`
-- Convert numbers straight to currency like: چهارده هزار و پانصد تومان see [Usage](https://github.com/yamin8000/PrettyPersianNumbers#Usage)
+- Convert numbers straight to currency like: چهارده هزار و پانصد تومان
+  see [Usage](https://github.com/yamin8000/PrettyPersianNumbers#Usage)
 - Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
 - Negative numbers are supported
 
@@ -129,7 +136,7 @@ dependencies {
 
 ## Credits
 
-  [https://github.com/yaghoob](https://github.com/yaghoob)
+[https://github.com/yaghoob](https://github.com/yaghoob)
 
 ## License
 
@@ -160,4 +167,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind welcome!
