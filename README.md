@@ -1,12 +1,7 @@
 # PrettyPersianNumbers
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 <img src="logo.png" title="" alt="logo" data-align="center">
 
-[![Build](https://api.travis-ci.com/yamin8000/PrettyPersianNumbers.svg?branch=master)](https://travis-ci.com/github/yamin8000/PrettyPersianNumbers)
 [![javadoc](https://javadoc.io/badge2/com.github.yamin8000/PrettyPersianNumbers/javadoc.svg)](https://javadoc.io/doc/com.github.yamin8000/PrettyPersianNumbers)
 > Convert numbers to Persian words
 
@@ -39,8 +34,8 @@ Android Jellybean **4.1+**/SDK 16+
 
 **Kotlin**
 
-You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any
-number in different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`
+You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any number in
+different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`
 , `BigDecimal` or numbers as a `String`.
 
 ```kotlin
@@ -50,10 +45,6 @@ val word2: String = Digits().spellToFarsi(12) // دوازده
 val word3: String = Digits().spellToFarsi(12_123_312_123)
 //پنج میلیون و یک صد و بیست و یک هزار و سی صد و بیست و یک
 val word4: String = Digits().spellToFarsi("5121321")
-//چهارده هزار و پانصد ریال
-val money1: String = Digits().spellToIranMoney("14500")
-//چهارده هزار و پانصد تومان
-val money2: String = Digits().spellToIranMoney("14500", IranCurrency.TOMAN)
 //سه ممیز چهارده، صدم
 val decimalWord: String = Digits().spelltoFarsi(3.14)
 ```
@@ -100,6 +91,7 @@ dependencies {
 Add the dependency
 
 ```xml
+
 <dependency>
     <groupId>com.github.yamin8000</groupId>
     <artifactId>PrettyPersianNumbers</artifactId>
@@ -118,8 +110,8 @@ dependencies {
 
 ## Features
 
-- Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From
-  Zero to `Vigintillion` or more
+- Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero
+  to `Vigintillion` or more
 - Convert numbers from `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal`
 - Convert numbers straight to currency like: چهارده هزار و پانصد تومان
   see [Usage](https://github.com/yamin8000/PrettyPersianNumbers#Usage)
@@ -128,6 +120,7 @@ dependencies {
 
 ## Changelog
 
+- **1.1.0** [more info](https://github.com/yamin8000/PrettyPersianNumbers/releases/tag/1.1.0)
 - **1.0.5** [more info](https://github.com/yamin8000/PrettyPersianNumbers/releases/tag/1.0.5)
 - **1.0.3** add support for decimal numbers
 - **1.0.2** bug fixes
@@ -147,25 +140,3 @@ dependencies {
 > which include larger works using a licensed work, under the same  
 > license. Copyright and license notices must be preserved. Contributors  
 > provide an express grant of patent rights.
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="http://yyss.ir"><img src="https://avatars.githubusercontent.com/u/9123711?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yaghoob Siahmargooei</b></sub></a><br /><a href="https://github.com/yamin8000/PrettyPersianNumbers/issues?q=author%3Ayaghoob" title="Bug reports">🐛</a> <a href="https://github.com/yamin8000/PrettyPersianNumbers/commits?author=yaghoob" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/yamin8000"><img src="https://avatars.githubusercontent.com/u/5001708?v=4?s=100" width="100px;" alt=""/><br /><sub><b>YaMiN</b></sub></a><br /><a href="https://github.com/yamin8000/PrettyPersianNumbers/commits?author=yamin8000" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)
-specification. Contributions of any kind welcome!

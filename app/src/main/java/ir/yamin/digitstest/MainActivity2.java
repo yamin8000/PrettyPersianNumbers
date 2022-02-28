@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import ir.yamin.digits.Digits;
+import com.github.yamin8000.ppn.Digits;
 
 public class MainActivity2 extends AppCompatActivity {
 
