@@ -1,5 +1,6 @@
 package com.github.yamin8000.ppn.util
 
+import java.math.BigDecimal
 import java.math.BigInteger
 
 internal object Constants {
@@ -17,4 +18,6 @@ internal object Constants {
 
     internal val zeroBigInteger: BigInteger by lazy(LazyThreadSafetyMode.NONE) { BigInteger.ZERO }
     internal val oneBigInteger: BigInteger by lazy(LazyThreadSafetyMode.NONE) { BigInteger.ONE }
+
+    internal val zeroDecimal = BigDecimal.ZERO
 }

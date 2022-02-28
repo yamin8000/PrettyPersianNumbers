@@ -9,6 +9,7 @@ import com.github.yamin8000.ppn.util.Constants.dotChar
 import com.github.yamin8000.ppn.util.Constants.oneBigInteger
 import com.github.yamin8000.ppn.util.Constants.zeroBigInteger
 import com.github.yamin8000.ppn.util.Constants.zeroChar
+import com.github.yamin8000.ppn.util.Constants.zeroDecimal
 import com.github.yamin8000.ppn.util.Constants.zeroOnlyRegex
 import com.github.yamin8000.ppn.util.PersianNumber
 import com.github.yamin8000.ppn.util.PersianNumber.AND
@@ -27,7 +28,9 @@ import java.math.BigInteger
 class Digits {
 
     /**
-     * Spell a [number] to it's word representation in Farsi
+     * Spell a number to its Persian/Farsi equivalent.
+     *
+     * @param number the number to spell
      */
     fun spellToFarsi(number: Number): String {
         return try {
@@ -48,7 +51,9 @@ class Digits {
     }
 
     /**
-     * See [spellToFarsi]
+     * Spell a number in [String] to its Persian/Farsi equivalent.
+     *
+     * @see [spellToFarsi]
      */
     fun spellToFarsi(number: String): String {
         return try {
@@ -58,8 +63,9 @@ class Digits {
         }
     }
 
+
     /**
-     * Takes a number in [String] format and return words representation of it
+     * Handle numbers in [String] format.
      */
     private fun stringHandler(number: String): String {
         if (number.isBlank()) return NaN
@@ -78,7 +84,7 @@ class Digits {
             else -> digitsHandler(number)
         }
     }
-    
+
     private fun handleStringsWithMinusPrefix(number: String): String {
         val numberWithoutMinus = number.substring(1)
         return if (numberWithoutMinus.isNotBlank()) {
@@ -98,7 +104,7 @@ class Digits {
     }
 
     /**
-     * handling numbers that starts with zero and removes starting zeros
+     * Handling numbers that starts with zero and removes starting zeros
      *
      * @param number string that starts with zero
      * @return string with starting zeros removed
@@ -260,38 +266,35 @@ class Digits {
      * @return string representation of given decimal number in farsi
      */
     private fun bigDecimalHandler(bigDecimal: BigDecimal): String {
-        val zeroDecimal = BigDecimal.ZERO
         when (bigDecimal.compareTo(zeroDecimal)) {
             -1 -> return "$MINUS ${bigDecimalHandler(bigDecimal.abs())}"
             0 -> return ZERO
-            1 -> {
-                //dividing integer and fraction part from decimal
-                val integerPart = bigDecimal.toBigInteger()
-                val fraction = bigDecimal.remainder(BigDecimal.ONE)
-                //if input only contains integers and no fraction like 1.0, 14.5
-                val isIntegerOnly = fraction == zeroDecimal || fraction.compareTo(zeroDecimal) == 0
-                if (isIntegerOnly) return bigIntegerHandler(integerPart)
-                //if bigDecimal is 3.14 then decimals is 14
-                val decimals = fraction.scaleByPowerOfTen(fraction.scale())
-                //if bigDecimal is 3.14 then ten power is 100 or صدم
-                val tenPower = bigTen.pow(fraction.scale())
-                //add م to صد so it becomes صدم
-                var tenPowerName = "${bigIntegerHandler(tenPower)}${PersianNumber.TH}"
-                tenPowerName = normalizeTenPowerName(tenPowerName)
-                //if input is only fraction like 0.5, 0.0002
-                val isFractionOnly = integerPart.isFractionOnly()
-                val fractionName = bigIntegerHandler(BigInteger("$decimals"))
-                if (isFractionOnly) return "$fractionName $tenPowerName"
-                //if input is normal like 3.14, 3.121323, 15.00001
-                val integerName = bigIntegerHandler(integerPart)
-                return "$integerName $RADIX $fractionName، $tenPowerName"
-            }
+            1 -> return positiveBigDecimalHandler(bigDecimal)
         }
         return NaN
     }
 
-    private fun BigInteger.isFractionOnly(): Boolean {
-        return this == zeroBigInteger || this.compareTo(zeroBigInteger) == 0
+    private fun positiveBigDecimalHandler(bigDecimal: BigDecimal): String {
+        //dividing integer and fraction part from decimal
+        val integerPart = bigDecimal.toBigInteger()
+        val fraction = bigDecimal.remainder(BigDecimal.ONE)
+        //if input only contains integers and no fraction like 1.0, 14.5
+        val isIntegerOnly = fraction == zeroDecimal || fraction.compareTo(zeroDecimal) == 0
+        if (isIntegerOnly) return bigIntegerHandler(integerPart)
+        //if bigDecimal is 3.14 then decimals is 14
+        val decimals = fraction.scaleByPowerOfTen(fraction.scale())
+        //if bigDecimal is 3.14 then ten power is 100 or صدم
+        val tenPower = bigTen.pow(fraction.scale())
+        //add م to صد so it becomes صدم
+        var tenPowerName = "${bigIntegerHandler(tenPower)}${PersianNumber.TH}"
+        tenPowerName = normalizeTenPowerName(tenPowerName)
+        //if input is only fraction like 0.5, 0.0002
+        val isFractionOnly = integerPart.isFractionOnly()
+        val fractionName = bigIntegerHandler(BigInteger("$decimals"))
+        if (isFractionOnly) return "$fractionName $tenPowerName"
+        //if input is normal like 3.14, 3.121323, 15.00001
+        val integerName = bigIntegerHandler(integerPart)
+        return "$integerName $RADIX $fractionName، $tenPowerName"
     }
 
     /**
@@ -313,6 +316,9 @@ class Digits {
         return tenPowerName
     }
 
+    private fun BigInteger.isFractionOnly(): Boolean {
+        return this == zeroBigInteger || this.compareTo(zeroBigInteger) == 0
+    }
 
     /**
      * Extension method to check if a [String] only contain numbers
