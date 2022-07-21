@@ -113,8 +113,6 @@ dependencies {
 - Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero
   to `Vigintillion` or more
 - Convert numbers from `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal`
-- Convert numbers straight to currency like: چهارده هزار و پانصد تومان
-  see [Usage](https://github.com/yamin8000/PrettyPersianNumbers#Usage)
 - Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
 - Negative numbers are supported
 
