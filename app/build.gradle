@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "ir.yamin.digitstest"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -28,8 +28,8 @@ android {
     }
     kotlinOptions {
         jvmTarget = '11'
-        useIR = true
     }
+    namespace 'ir.yamin.digitstest'
 }
 
 dependencies {
