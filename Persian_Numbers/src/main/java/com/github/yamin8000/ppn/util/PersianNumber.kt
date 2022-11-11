@@ -86,7 +86,7 @@ internal object PersianNumber {
      * Big integer Products of Ten representation
      */
     internal val bigTen = BigInteger("10")
-    val bigIntegerTenPowers = mapOf(
+    val bigIntegerTenPowers: Map<BigInteger, String> = mapOf(
         bigTen.pow(21) to SEXTILLION, bigTen.pow(24) to SEPTILLION,
         bigTen.pow(27) to OCTILLION, bigTen.pow(30) to NONILLION,
         bigTen.pow(33) to DECILLION, bigTen.pow(36) to UNDECILLION,

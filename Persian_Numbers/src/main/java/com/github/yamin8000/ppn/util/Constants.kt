@@ -19,5 +19,5 @@ internal object Constants {
     internal val zeroBigInteger: BigInteger by lazy(LazyThreadSafetyMode.NONE) { BigInteger.ZERO }
     internal val oneBigInteger: BigInteger by lazy(LazyThreadSafetyMode.NONE) { BigInteger.ONE }
 
-    internal val zeroDecimal = BigDecimal.ZERO
+    internal val zeroDecimal: BigDecimal = BigDecimal.ZERO
 }

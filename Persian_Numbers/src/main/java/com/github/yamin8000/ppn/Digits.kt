@@ -32,22 +32,20 @@ class Digits {
      *
      * @param number the number to spell
      */
-    fun spellToFarsi(number: Number): String {
-        return try {
-            when (number) {
-                is Byte -> spellToFarsi("${number.toInt()}")
-                is Short -> spellToFarsi("${number.toInt()}")
-                is Int -> spellToFarsi("$number")
-                is Long -> spellToFarsi("$number")
-                is Float -> bigDecimalHandler("$number")
-                is Double -> bigDecimalHandler("$number")
-                is BigInteger -> bigIntegerHandler(number)
-                is BigDecimal -> bigDecimalHandler(number)
-                else -> NaN
-            }
-        } catch (e: NumberFormatException) {
-            NaN
+    fun spellToFarsi(number: Number) = try {
+        when (number) {
+            is Byte -> spellToFarsi("${number.toInt()}")
+            is Short -> spellToFarsi("${number.toInt()}")
+            is Int -> spellToFarsi("$number")
+            is Long -> spellToFarsi("$number")
+            is Float -> bigDecimalHandler("$number")
+            is Double -> bigDecimalHandler("$number")
+            is BigInteger -> bigIntegerHandler(number)
+            is BigDecimal -> bigDecimalHandler(number)
+            else -> NaN
         }
+    } catch (e: NumberFormatException) {
+        NaN
     }
 
     /**
@@ -55,12 +53,10 @@ class Digits {
      *
      * @see [spellToFarsi]
      */
-    fun spellToFarsi(number: String): String {
-        return try {
-            stringHandler(number)
-        } catch (e: NumberFormatException) {
-            NaN
-        }
+    fun spellToFarsi(number: String) = try {
+        stringHandler(number)
+    } catch (e: NumberFormatException) {
+        NaN
     }
 
 
