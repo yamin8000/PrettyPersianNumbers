@@ -65,7 +65,7 @@ String persianNumber=new Digits().spellToFarsi("1231");
 ## Download
 
 Find the latest version
-from [Maven Artifact](https://search.maven.org/artifact/com.github.yamin8000/PrettyPersianNumbers)
+from [https://central.sonatype.com/artifact/com.github.yamin8000/PrettyPersianNumbers/1.1.1/versions)
 
 ### Gradle Groovy DSL
 
