@@ -1,12 +1,14 @@
 package ir.yamin.digitstest
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import com.github.yamin8000.ppn.Digits
+import com.github.yamin8000.ppn.PersianDigits
 
+@SuppressLint("Registered")
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         input.doAfterTextChanged {
             val number = it.toString()
-            textView.text = Digits().spellToFarsi(number)
+            textView.text = PersianDigits.spellToFarsi(number)
         }
     }
 }

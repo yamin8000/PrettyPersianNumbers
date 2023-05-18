@@ -1,18 +1,27 @@
 package com.github.yamin8000.ppn
 
-import com.github.yamin8000.ppn.Digits.Companion.spell
-import java.math.BigDecimal
-import java.math.BigInteger
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
-private fun main() {
-    val x = 12L
-    println(BigDecimal("1.4").spell())
-    println((-124).spell())
-    val big = BigInteger("150")
-    println(Digits().spellToFarsi(big))
-    //for (number in 0..Long.MAX_VALUE) println(Digits().spellToFarsi(number))
+class Main {
 
-    println(12.spell())
-    println("....".spell())
-    println("124.01".spell())
+    @Test
+    fun zeroTest() {
+        assertEquals("صفر", PersianDigits.spellToFarsi(0))
+    }
+
+    @Test
+    fun twelveTest() {
+        assertEquals("دوازده", PersianDigits.spellToFarsi(12))
+    }
+
+    @Test
+    fun negativeTest() {
+        assertEquals("منفی یکصد و بیست و چهار", PersianDigits.spellToFarsi(-124))
+    }
+
+    @Test
+    fun decimalTest() {
+        assertEquals("یکصد و بیست و چهار ممیز یک، صدم", PersianDigits.spellToFarsi(124.01))
+    }
 }

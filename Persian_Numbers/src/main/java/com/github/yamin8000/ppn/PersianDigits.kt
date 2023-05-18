@@ -25,7 +25,7 @@ import com.github.yamin8000.ppn.util.PersianNumber.twoDigits
 import java.math.BigDecimal
 import java.math.BigInteger
 
-class Digits {
+object PersianDigits {
 
     /**
      * Spell a number to its Persian/Farsi equivalent.
@@ -317,18 +317,15 @@ class Digits {
         else this.all { it.isDigit() }
     }
 
-    companion object {
+    /**
+     * Extension method to spell a [Number] to word representation of it for Farsi,
+     * example: 12 => دوازده
+     */
+    fun Number.spell() = spellToFarsi(this)
 
-        /**
-         * Extension method to spell a [Number] to word representation of it for Farsi,
-         * example: 12 => دوازده
-         */
-        fun Number.spell() = Digits().spellToFarsi(this)
-
-        /**
-         * Extension method to spell a number in [String] to word representation of it for Farsi,
-         * example: 12 => دوازده
-         */
-        fun String.spell() = Digits().spellToFarsi(this)
-    }
+    /**
+     * Extension method to spell a number in [String] to word representation of it for Farsi,
+     * example: 12 => دوازده
+     */
+    fun String.spell() = spellToFarsi(this)
 }

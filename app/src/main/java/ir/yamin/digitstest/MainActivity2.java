@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.github.yamin8000.ppn.Digits;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -33,7 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String number = s.toString();
-                textView.setText(new Digits().spellToFarsi(number));
+                //textView.setText(PersianDigits.spellToFarsi(number));
             }
         });
     }

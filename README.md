@@ -2,24 +2,6 @@
 
 <img src="logo.png" title="" alt="logo" data-align="center">
 
-[![javadoc](https://javadoc.io/badge2/com.github.yamin8000/PrettyPersianNumbers/javadoc.svg)](https://javadoc.io/doc/com.github.yamin8000/PrettyPersianNumbers)
-> Convert numbers to Persian words
-
----  
-
-|  -   |                -                 |
-|:----:|:--------------------------------:|
-|  📺  |       [Preview](#Preview)        |
-|  📱  | [Compatibility](#Compatibility)  |
-|  💻  |         [Usage](#Usage)          |
-|  📩  |      [Download](#Download)       |
-|  📋  |      [Features](#Features)       |
-|  🧾  |     [Changelog](#Changelog)      |
-|  🏆  |       [Credits](#Credits)        |
-|  ⚖️  |       [License](#License)        |
-
----
-
 ## Preview
 
 ![ScreenShot](/screen.gif)
@@ -34,7 +16,8 @@ Android Jellybean **4.1+**/SDK 16+
 
 **Kotlin**
 
-You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be any number in
+You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be
+any number in
 different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`
 , `BigDecimal` or numbers as a `String`.
 
@@ -110,10 +93,12 @@ dependencies {
 
 ## Features
 
-- Any number that could be fitted in `BigInteger` can be converted to Persian words using this library From Zero
+- Any number that could be fitted in `BigInteger` can be converted to Persian words using this
+  library From Zero
   to `Vigintillion` or more
 - Convert numbers from `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`, `BigDecimal`
-- Large numbers are named using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
+- Large numbers are named
+  using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
 - Negative numbers are supported
 
 ## Changelog
