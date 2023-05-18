@@ -59,10 +59,6 @@ class Digits {
         NaN
     }
 
-
-    /**
-     * Handle numbers in [String] format.
-     */
     private fun stringHandler(number: String): String {
         if (number.isBlank()) return NaN
         when (number.first()) {
@@ -316,9 +312,6 @@ class Digits {
         return this == zeroBigInteger || this.compareTo(zeroBigInteger) == 0
     }
 
-    /**
-     * Extension method to check if a [String] only contain numbers
-     */
     private fun String.isNumberOnly(): Boolean {
         return if (this.isBlank()) false
         else this.all { it.isDigit() }
