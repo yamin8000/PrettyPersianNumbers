@@ -5,7 +5,7 @@ import java.math.BigInteger
 
 internal object Constants {
 
-    private const val ZERO_ONLY_REGEX = "[0]+"
+    private const val ZERO_ONLY_REGEX = "0+"
     private const val DECIMAL_REGEX = "\\d*\\.\\d+"
 
     internal const val NaN = "NaN"

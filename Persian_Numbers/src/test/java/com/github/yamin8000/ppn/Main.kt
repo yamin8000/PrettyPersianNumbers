@@ -7,21 +7,21 @@ class Main {
 
     @Test
     fun zeroTest() {
-        assertEquals("صفر", PersianDigits.spellToFarsi(0))
+        assertEquals("صفر", PersianDigits.spellToPersian(0))
     }
 
     @Test
     fun twelveTest() {
-        assertEquals("دوازده", PersianDigits.spellToFarsi(12))
+        assertEquals("دوازده", PersianDigits.spellToPersian(12))
     }
 
     @Test
     fun negativeTest() {
-        assertEquals("منفی یکصد و بیست و چهار", PersianDigits.spellToFarsi(-124))
+        assertEquals("منفی یکصد و بیست و چهار", PersianDigits.spellToPersian(-124))
     }
 
     @Test
     fun decimalTest() {
-        assertEquals("یکصد و بیست و چهار ممیز یک، صدم", PersianDigits.spellToFarsi(124.01))
+        assertEquals("یکصد و بیست و چهار ممیز یک، صدم", PersianDigits.spellToPersian(124.01))
     }
 }

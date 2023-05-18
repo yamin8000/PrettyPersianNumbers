@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         input.doAfterTextChanged {
             val number = it.toString()
-            textView.text = PersianDigits.spellToFarsi(number)
+            textView.text = PersianDigits.spellToPersian(number)
         }
     }
 }

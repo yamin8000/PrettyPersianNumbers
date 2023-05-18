@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.yamin8000.ppn.PersianHelpersJava;
+
 public class MainActivity2 extends AppCompatActivity {
 
     @Override
@@ -32,7 +34,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String number = s.toString();
-                //textView.setText(PersianDigits.spellToFarsi(number));
+                textView.setText(PersianHelpersJava.spellToFarsi(number));
             }
         });
     }
