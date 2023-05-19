@@ -16,39 +16,33 @@ Android Jellybean **4.1+**/SDK 16+
 
 **Kotlin**
 
-You just need to create an instance from `Digits` class and call `spellToFarsi` method. input can be
-any number in
-different data types like `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`, `BigInteger`
-, `BigDecimal` or numbers as a `String`.
-
 ```kotlin
-val word1: String = Digits().spellToFarsi(input)
-val word2: String = Digits().spellToFarsi(12) // دوازده
+val word1: String = PersianDigits.spellToPersian(input)
+val word2: String = PersianDigits.spellToPersian(12) // دوازده
 //دوازده میلیارد و یک صد و بیست و سه میلیون و سی صد و دوازده هزار و یک صد و بیست و سه
-val word3: String = Digits().spellToFarsi(12_123_312_123)
+val word3: String = PersianDigits.spellToPersian(12_123_312_123)
 //پنج میلیون و یک صد و بیست و یک هزار و سی صد و بیست و یک
-val word4: String = Digits().spellToFarsi("5121321")
+val word4: String = PersianDigits.spellToPersian("5121321")
 //سه ممیز چهارده، صدم
-val decimalWord: String = Digits().spelltoFarsi(3.14)
+val decimalWord: String = PersianDigits.spellToPersian(3.14)
 ```
 
 in Kotlin, you can also take advantage of extension methods like so:
 
 ```kotlin
-500.spell()
-"12.51".spell()
+500.spellToPersian()
+"12.51".spellToPersian()
 ```
 
 **Java**
 
 ```java
-String persianNumber=new Digits().spellToFarsi("1231");
+String persianNumber=PersianHelpersJava.spellToFarsi("1231");
 ```
 
 ## Download
 
-Find the latest version
-from [https://central.sonatype.com/artifact/com.github.yamin8000/PrettyPersianNumbers/1.1.1/versions)
+Find the latest version [here](https://central.sonatype.com/artifact/com.github.yamin8000/PrettyPersianNumbers).
 
 ### Gradle Groovy DSL
 
@@ -100,15 +94,6 @@ dependencies {
 - Large numbers are named
   using [short-scale standard](https://en.wikipedia.org/wiki/Long_and_short_scales)
 - Negative numbers are supported
-
-## Changelog
-
-- **1.1.0** [more info](https://github.com/yamin8000/PrettyPersianNumbers/releases/tag/1.1.0)
-- **1.0.5** [more info](https://github.com/yamin8000/PrettyPersianNumbers/releases/tag/1.0.5)
-- **1.0.3** add support for decimal numbers
-- **1.0.2** bug fixes
-- **1.0.1** bug fixes, added support for big numbers
-- **1.0.0** initial version
 
 ## Credits
 
