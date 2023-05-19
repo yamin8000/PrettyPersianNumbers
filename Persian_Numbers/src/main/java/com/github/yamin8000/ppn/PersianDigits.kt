@@ -4,13 +4,11 @@ package com.github.yamin8000.ppn
 
 import com.github.yamin8000.ppn.util.Constants.NaN
 import com.github.yamin8000.ppn.util.Constants.dashChar
-import com.github.yamin8000.ppn.util.Constants.decimalRegex
 import com.github.yamin8000.ppn.util.Constants.dotChar
 import com.github.yamin8000.ppn.util.Constants.oneBigInteger
 import com.github.yamin8000.ppn.util.Constants.zeroBigInteger
 import com.github.yamin8000.ppn.util.Constants.zeroChar
 import com.github.yamin8000.ppn.util.Constants.zeroDecimal
-import com.github.yamin8000.ppn.util.Constants.zeroOnlyRegex
 import com.github.yamin8000.ppn.util.PersianNumber
 import com.github.yamin8000.ppn.util.PersianNumber.AND
 import com.github.yamin8000.ppn.util.PersianNumber.MINUS
@@ -31,15 +29,17 @@ object PersianDigits {
      * Spell a number to its Persian/Farsi equivalent.
      *
      * @param number the number to spell
+     * @throws NumberFormatException
      */
     fun spellToPersian(number: Number) = try {
+        val numberString = "$number".trim()
         when (number) {
-            is Byte -> spellToPersian("${number.toInt()}")
-            is Short -> spellToPersian("${number.toInt()}")
-            is Int -> spellToPersian("$number")
-            is Long -> spellToPersian("$number")
-            is Float -> spellBigDecimalString("$number")
-            is Double -> spellBigDecimalString("$number")
+            is Byte -> spellToPersian("${numberString.toInt()}")
+            is Short -> spellToPersian("${numberString.toInt()}")
+            is Int -> spellToPersian(numberString)
+            is Long -> spellToPersian(numberString)
+            is Float -> spellBigDecimalString(numberString)
+            is Double -> spellBigDecimalString(numberString)
             is BigInteger -> spellBigInteger(number)
             is BigDecimal -> spellBigDecimal(number)
             else -> NaN
@@ -49,150 +49,109 @@ object PersianDigits {
     }
 
     /**
-     * Spell a number in [String] to its Persian/Farsi equivalent.
+     * Spell a number to its Persian/Farsi equivalent.
      *
-     * @see [spellToPersian]
+     * @param number the number to spell
+     * @throws NumberFormatException
      */
-    fun spellToPersian(number: String): String {
-        return try {
-            spellStringNumber(number)
-        } catch (e: NumberFormatException) {
-            NaN
-        }
+    fun spellToPersian(number: String): String = try {
+        spellUnknownNumber(number)
+    } catch (e: NumberFormatException) {
+        NaN
     }
 
-    private fun spellStringNumber(number: String): String {
-        if (number.isBlank()) return NaN
-        when (number.first()) {
-            dashChar -> return handleStringsWithMinusPrefix(number)
-            zeroChar -> return handleStringsWithZeroPrefix(number)
-            //numbers like .0, .14 are decimals too
-            dotChar -> if (decimalRegex.matches(number)) return spellBigDecimal(BigDecimal(number))
-            else -> if (decimalRegex.matches(number)) return spellBigDecimal(BigDecimal(number))
-        }
-
-        return when (number.length) {
-            1 -> singleDigits[number.toLong()] ?: NaN
-            2 -> twoDigitHandler(number)
-            3 -> threeDigitsHandler(number)
-            else -> digitsHandler(number)
-        }
+    private fun spellUnknownNumber(number: String) = when (number.firstOrNull()) {
+        dashChar -> spellNegativeNumber(number.drop(1))
+        zeroChar -> spellNumberStartingWithZero(number)
+        dotChar -> spellBigDecimal(BigDecimal(number))
+        null -> NaN
+        else -> spellNumber(number)
     }
 
-    private fun handleStringsWithMinusPrefix(number: String): String {
-        val numberWithoutMinus = number.substring(1)
-        return if (numberWithoutMinus.isNotBlank()) {
-            //when normal input like -12 -123123 -5612 -0
-            if (numberWithoutMinus.isNumberOnly()) {
-                return if (zeroOnlyRegex.matches(numberWithoutMinus)) ZERO
-                else "$MINUS ${spellStringNumber(numberWithoutMinus)}"
-            }
-            //when input contains anything other than numbers 0-9 like --, -., -.5, -1.5
-            else {
-                if (decimalRegex.matches(numberWithoutMinus)) return spellBigDecimalString(number)
-                else NaN
-            }
-        }
-        //when input is only -
-        else NaN
+    private fun spellNumber(number: String): String {
+        return if (number.contains(dotChar)) spellBigDecimalString(number)
+        else spellBareNumber(number)
     }
 
-    /**
-     * Handling numbers that starts with zero and removes starting zeros
-     *
-     * @param number string that starts with zero
-     * @return string with starting zeros removed
-     */
-    private fun handleStringsWithZeroPrefix(number: String): String {
-        if (zeroOnlyRegex.matches(number)) return ZERO
-        /**
-         * this can probably be replaced with some smart-ass regex with lookahead,
-         * but that makes it more complex
-         *
-         * this loop re-call this method with version of this number that doesn't contain starting zeros
-         * or finds first occurrence of a non-zero number and makes that starting index of new string
-         * suppose input number is 000012
-         * then starting index is 4 and new string is 12
-         */
-        return number.indices.firstOrNull { number[it] != zeroChar }
-            ?.let { spellStringNumber(number.substring(it)) } ?: ZERO
+    private fun spellNegativeNumber(unsignedNumber: String): String = when {
+        unsignedNumber.isBlank() -> NaN
+        unsignedNumber.isNumberOnly() && unsignedNumber.all { it == zeroChar } -> ZERO
+        else -> "$MINUS ${spellUnknownNumber(unsignedNumber)}"
     }
 
-    private fun twoDigitHandler(number: String): String {
-        if (number.length < 2) return spellStringNumber(number)
-        //return if number is exactly from twoDigits list
-        twoDigits[number.toLong()]?.let { return it }
+    private fun spellBareNumber(number: String) = when (number.length) {
+        0 -> NaN
+        1 -> singleDigits[number.toLongOrNull()] ?: NaN
+        2 -> spellTwoDigitsNumber(number)
+        3 -> threeDigits[number.toLongOrNull()] ?: processThreeDigitsNumber(number)
+        else -> spellFourDigitsAndMoreNumber(number)
+    }
+
+    private fun spellNumberStartingWithZero(number: String): String {
+        return if (number.isNotBlank() && number.all { it == zeroChar }) ZERO
+        else spellUnknownNumber(number.removePrefix("$zeroChar"))
+    }
+
+    private fun spellTwoDigitsNumber(number: String): String {
+        return twoDigits[number.toLongOrNull()] ?: processTwoDigitsNumber(number)
+    }
+
+    private fun processTwoDigitsNumber(number: String): String {
         val oneNotation = "${number[1]}".toLong()
         val tenNotation = ("${number[0]}".toLong()) * 10
         return "${twoDigits[tenNotation]} $AND ${singleDigits[oneNotation]}"
     }
 
-    private fun threeDigitsHandler(number: String): String {
-        //return if number is exactly from threeDigits list
-        threeDigits[number.toLong()]?.let { return it }
+    private fun processThreeDigitsNumber(number: String): String {
         val oneNotation = "${number[2]}".toLong()
         val tenNotation = (("${number[1]}".toLong()) * 10) + oneNotation
         val hundredNotation = ("${number[0]}".toLong()) * 100
-        return "${threeDigits[hundredNotation]} $AND ${twoDigitHandler("$tenNotation")}"
+        return "${threeDigits[hundredNotation]} $AND ${spellTwoDigitsNumber("$tenNotation")}"
     }
 
-    /**
-     * Digits handler
-     *
-     * @param number in String type
-     * @return persian representation of that number
-     * @see Long.MAX_VALUE
-     */
-    private fun digitsHandler(number: String): String {
+    private fun spellFourDigitsAndMoreNumber(number: String): String {
         val bigInteger = number.toBigInteger()
         return when (bigInteger.compareTo(BigInteger.valueOf(Long.MAX_VALUE))) {
-            0, -1 -> spellLong(number.toLong())
+            0, -1 -> spellPositiveLongNumber(number.toLong())
             1 -> spellBigInteger(bigInteger)
             else -> NaN
         }
     }
 
-    private fun spellLong(longNumber: Long): String {
-        singleDigits[longNumber]?.let { return it }
-        twoDigits[longNumber]?.let { return it }
-        threeDigits[longNumber]?.let { return it }
-        tenPowers[longNumber]?.let { return "${PersianNumber.ONE} $it" }
+    private fun spellPositiveLongNumber(number: Long): String {
+        singleDigits[number]?.let { return it }
+        twoDigits[number]?.let { return it }
+        threeDigits[number]?.let { return it }
+        tenPowers[number]?.let { return "${PersianNumber.ONE} $it" }
 
         //biggest ten power before input number
-        val biggestTenPower = findBiggestTenPowerBeforeInputNumber(longNumber)
-        if (biggestTenPower == 0L) return spellStringNumber("$longNumber")
+        val biggestTenPower = findBiggestTenPowerBeforeNumber(number)
+        if (biggestTenPower == 0L) return spellUnknownNumber("$number")
 
-        val tenPowerDivisor = spellStringNumber("${longNumber / biggestTenPower}")
+        val tenPowerDivisor = spellUnknownNumber("${number / biggestTenPower}")
         val tenPowerName = tenPowers[biggestTenPower] ?: ""
-        val remainderNumber = longNumber % biggestTenPower
+        val remainderNumber = number % biggestTenPower
         if (remainderNumber == 0L) return "$tenPowerDivisor $tenPowerName"
-        val remainderNumberName = spellStringNumber("$remainderNumber")
+        val remainderNumberName = spellUnknownNumber("$remainderNumber")
         return "$tenPowerDivisor $tenPowerName و $remainderNumberName"
     }
 
-    /**
-     * Find biggest ten power before input number,
-     * biggest ten power before 2220 is 1000
-     *
-     * @param longNumber
-     * @return
-     */
-    private fun findBiggestTenPowerBeforeInputNumber(longNumber: Long): Long {
+    private fun findBiggestTenPowerBeforeNumber(number: Long): Long {
         var biggestTenPower = 0L
-        if (longNumber >= 1_000L) {
+        if (number >= 1_000L) {
             for (power in tenPowers)
-                if (longNumber / power.key in 1 until longNumber)
+                if (number / power.key in 1 until number)
                     biggestTenPower = power.key
         }
         return biggestTenPower
     }
 
     private fun spellBigInteger(input: BigInteger): String {
-        val biggestTenPower = findBiggestTenPowerBeforeInputNumber(input)
+        val biggestTenPower = findBiggestTenPowerBeforeBigDecimal(input)
 
-        if (biggestTenPower == zeroBigInteger) return spellLong(input.toLong())
+        if (biggestTenPower == zeroBigInteger) return spellPositiveLongNumber(input.toLong())
 
-        val tenPowerDivisor = spellStringNumber("${input.divide(biggestTenPower)}")
+        val tenPowerDivisor = spellUnknownNumber("${input.divide(biggestTenPower)}")
 
         var tenPowerName = NaN
         bigIntegerTenPowers[biggestTenPower]?.let { tenPowerName = it }
@@ -200,11 +159,11 @@ object PersianDigits {
 
         val remainderNumber = input.mod(biggestTenPower)
         if (remainderNumber == zeroBigInteger) return "$tenPowerDivisor $tenPowerName"
-        val remainderNumberName = spellStringNumber("$remainderNumber")
+        val remainderNumberName = spellUnknownNumber("$remainderNumber")
         return "$tenPowerDivisor $tenPowerName $AND $remainderNumberName"
     }
 
-    private fun findBiggestTenPowerBeforeInputNumber(input: BigInteger): BigInteger {
+    private fun findBiggestTenPowerBeforeBigDecimal(input: BigInteger): BigInteger {
         var biggestTenPower = zeroBigInteger
 
         if (input >= BigInteger("1000")) {

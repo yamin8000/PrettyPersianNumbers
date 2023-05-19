@@ -11,7 +11,7 @@ public class PersianHelpersJava {
      * @param number input number
      * @return Persian representation of input number in String
      */
-    public static String spellToFarsi(String number) {
+    public static String spellToFarsi(String number) throws NumberFormatException {
         return PersianHelpers.INSTANCE.spellToPersian(number);
     }
 
@@ -19,7 +19,7 @@ public class PersianHelpersJava {
      * @param number input number
      * @return Persian representation of input number in String
      */
-    public static String spellToFarsi(Number number) {
+    public static String spellToFarsi(Number number) throws NumberFormatException {
         return PersianHelpers.INSTANCE.spellToPersian(number);
     }
 }
