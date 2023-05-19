@@ -23,6 +23,9 @@ import com.github.yamin8000.ppn.util.PersianNumber.twoDigits
 import java.math.BigDecimal
 import java.math.BigInteger
 
+/**
+ * [PrettyPersianNumbers](https://github.com/yamin8000/PrettyPersianNumbers)
+ */
 object PersianDigits {
 
     /**
