@@ -209,9 +209,13 @@ object PersianDigits {
         val decimals = fraction.scaleByPowerOfTen(fraction.scale())
         //if bigDecimal is 3.14 then ten power is 100 or صدم
         val tenPower = bigTen.pow(fraction.scale())
-        //add م to صد so it becomes صدم
-        var tenPowerName = "${spellBigInteger(tenPower)}${PersianNumber.TH}"
-        tenPowerName = normalizeTenPowerName(tenPowerName)
+        /*add م to صد so it becomes صدم
+        since we don't want return value to be سه ممیز چهارده، یک صدم
+        and be سه ممیز چهارده، صدم
+        then we remove that part
+        */
+        val tenPowerName =
+            "${spellBigInteger(tenPower)}${PersianNumber.TH}".removePrefix(PersianNumber.ONE)
         //if input is only fraction like 0.5, 0.0002
         val isFractionOnly = integerPart.isFractionOnly()
         val fractionName = spellBigInteger(BigInteger("$decimals"))
@@ -219,25 +223,6 @@ object PersianDigits {
         //if input is normal like 3.14, 3.121323, 15.00001
         val integerName = spellBigInteger(integerPart)
         return "$integerName $RADIX $fractionName، $tenPowerName"
-    }
-
-    /**
-     * Normalize ten power name,
-     *
-     * since we don't want return value to be سه ممیز چهارده، یک صدم
-     * and be سه ممیز چهارده، صدم
-     * then we remove that part
-     *
-     * @param input un-normal ten power name
-     * @return normalized ten power name
-     */
-    private fun normalizeTenPowerName(input: String): String {
-        var tenPowerName = input
-        val persianOne = PersianNumber.ONE
-        if (tenPowerName.startsWith(persianOne)) {
-            tenPowerName = tenPowerName.replace(persianOne, "").trim()
-        }
-        return tenPowerName
     }
 
     private fun BigInteger.isFractionOnly(): Boolean {
