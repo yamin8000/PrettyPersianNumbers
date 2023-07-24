@@ -100,16 +100,17 @@ object PersianDigits {
     }
 
     private fun processTwoDigitsNumber(number: String): String {
+        if (number.length != 2) spellUnknownNumber(number)
         val oneNotation = "${number[1]}".toLong()
         val tenNotation = ("${number[0]}".toLong()) * 10
         return "${twoDigits[tenNotation]} $AND ${singleDigits[oneNotation]}"
     }
 
     private fun processThreeDigitsNumber(number: String): String {
-        val oneNotation = "${number[2]}".toLong()
-        val tenNotation = (("${number[1]}".toLong()) * 10) + oneNotation
+        if (number.length != 3) spellUnknownNumber(number)
+        val smallNotations = number.drop(1)
         val hundredNotation = ("${number[0]}".toLong()) * 100
-        return "${threeDigits[hundredNotation]} $AND ${spellTwoDigitsNumber("$tenNotation")}"
+        return "${threeDigits[hundredNotation]} $AND ${spellUnknownNumber(smallNotations)}"
     }
 
     private fun spellFourDigitsAndMoreNumber(number: String): String {
