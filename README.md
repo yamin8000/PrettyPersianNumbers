@@ -27,7 +27,7 @@ val word4: String = PersianDigits.spellToPersian("5121321")
 val decimalWord: String = PersianDigits.spellToPersian(3.14)
 ```
 
-in Kotlin, you can also take advantage of extension methods like so:
+in Kotlin, you can also take advantage of extension methods like:
 
 ```kotlin
 500.spellToPersian()
@@ -47,7 +47,7 @@ Find the latest version [here](https://central.sonatype.com/artifact/com.github.
 ### Gradle Groovy DSL
 
 **Step 1.** Add the Maven repository to your build file  
-Add it in your root build.gradle at the end of repositories:
+Add it to your root build.gradle at the end of repositories:
 
 ```groovy
 repositories {
