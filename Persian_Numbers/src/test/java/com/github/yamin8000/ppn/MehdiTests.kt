@@ -4,7 +4,7 @@ import com.github.yamin8000.ppn.PersianHelpers.spellToPersian
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class MehdiTests {
+private class MehdiTests {
 
     @Test
     fun firstMehdiTests() {

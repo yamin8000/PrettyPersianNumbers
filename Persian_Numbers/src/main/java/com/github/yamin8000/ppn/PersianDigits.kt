@@ -230,8 +230,5 @@ object PersianDigits {
         return this == zeroBigInteger || this.compareTo(zeroBigInteger) == 0
     }
 
-    private fun String.isNumberOnly(): Boolean {
-        return if (this.isBlank()) false
-        else this.all { it.isDigit() }
-    }
+    private fun String.isNumberOnly() = isNotBlank() && all { it.isDigit() }
 }
