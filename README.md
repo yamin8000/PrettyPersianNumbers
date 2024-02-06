@@ -10,7 +10,8 @@
 
 ## Compatibility
 
-Android Jellybean **4.1+**/SDK 16+
+> [!important]
+> Android Jellybean **4.1+**/SDK 16+
 
 ## Usage
 
@@ -26,8 +27,8 @@ val word4: String = PersianDigits.spellToPersian("5121321")
 //سه ممیز چهارده، صدم
 val decimalWord: String = PersianDigits.spellToPersian(3.14)
 ```
-
-in Kotlin, you can also take advantage of extension methods like:
+> [!tip]
+> In Kotlin, you can also take advantage of extension methods like:
 
 ```kotlin
 500.spellToPersian()
@@ -42,7 +43,8 @@ String persianNumber=PersianHelpersJava.spellToFarsi("1231");
 
 ## Download
 
-Find the latest version [here](https://central.sonatype.com/artifact/com.github.yamin8000/PrettyPersianNumbers).
+> [!important]
+> Find the latest version [here](https://central.sonatype.com/artifact/com.github.yamin8000/PrettyPersianNumbers).
 
 ### Gradle Groovy DSL
 
@@ -67,7 +69,7 @@ dependencies {
 
 Add the dependency
 
-```xml
+```XML
 
 <dependency>
     <groupId>com.github.yamin8000</groupId>
@@ -101,6 +103,7 @@ dependencies {
 
 ## License
 
+> [!important]
 > Pretty Persian Numbers is licensed under the **[GNU General  
 > Public License v3.0](./LICENSE)**  
 > Permissions of this strong copyleft license are conditioned on making  
