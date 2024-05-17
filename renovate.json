@@ -1,4 +1,5 @@
 {
+  "ignorePaths": ["**/app/**"],
   "extends": [
     "config:base"
   ]
