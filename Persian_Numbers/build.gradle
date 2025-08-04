@@ -41,6 +41,6 @@ android {
 
 dependencies {
     //implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
-    testImplementation(platform("org.junit:junit-bom:5.10.1"))
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
