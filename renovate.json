@@ -1,6 +1,8 @@
 {
-  "ignorePaths": ["**/app/**"],
+  "ignorePaths": [
+    "**/app/**"
+  ],
   "extends": [
-    "config:base"
+    "config:recommended"
   ]
 }
